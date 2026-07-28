@@ -25,6 +25,7 @@ motors:
     min: 55
     max: 100
 encoders:
+  driver: quad_encoder
   pins:
     left:
     - 41

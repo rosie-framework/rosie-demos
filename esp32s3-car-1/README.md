@@ -15,7 +15,7 @@ Framework docs:
 |-------------------|--------------|
 | DiffDriveStack, MobileBase, chip drivers | `robot.yaml` — pins, geometry, gains |
 | `rosie mcu gen-config` → `robot_config.h` | ~20-line `src/main.cpp` |
-| `rosie drive` / `tune` / `MobileRobot` | Hardware bring-up for this car |
+| `rosie drive` / `tune` / `MobileRobot` | Hardware bring-up; `drive_demo.py` for scripts |
 
 ## Hardware
 
@@ -43,8 +43,19 @@ password `esp32s3-car-1`. Join that network from the laptop, then:
 
 ```bash
 rosie router          # terminal 1 — Zenoh bus on the laptop
-rosie drive --config robot.yaml   # terminal 2
+rosie drive --config robot.yaml   # terminal 2 — interactive REPL
 ```
+
+Or drive from Python (no CLI REPL) with the same router up:
+
+```bash
+python drive_demo.py              # terminal 2 — MobileRobot script
+```
+
+`drive_demo.py` waits for pose, zeros odometry, runs a short `drive_to` /
+`drive_route`, then closes. Edit the waypoints in the script for your space.
+API reference:
+[MobileRobot](https://github.com/rosie-framework/rosie/blob/main/docs/host/mobile-robot.md).
 
 Reset the board if it tried to connect before the router was up. Host tools on
 this laptop use `tcp/127.0.0.1:7447` by default; the MCU uses
@@ -58,6 +69,7 @@ Dedicated AP / station mode: edit `network` in `robot.yaml` (or see
 | Command | What it does |
 |---------|----------------|
 | `rosie drive --config robot.yaml` | Waypoints, teleop, camera REPL |
+| `python drive_demo.py` | Same robot, scripted `MobileRobot` API |
 | `rosie teleop --robot car1` | WASD → `cmd_vel` only |
 | `rosie tune --config robot.yaml` | Live-tune velocity PID |
 | `rosie mcu build` / `flash` / `monitor` | Compile, flash, serial log |
@@ -92,6 +104,7 @@ void loop() {
 ```
 esp32s3-car-1/
   robot.yaml
+  drive_demo.py              # scripted MobileRobot control
   platformio.ini
   src/main.cpp
   src/generated/             # auto robot_config.h
