@@ -55,6 +55,7 @@ control:
     ki: 0.0
     kd: 0.0
     i_clamp: 0.5
+  control_hz: 5
   pose_hz: 20
   presence_hz: 1
 imu:
@@ -67,6 +68,8 @@ imu:
   yaw_sign: -1
 camera:
   board: esp32s3_eye
-  jpeg_quality: 18
+  # 0–100, higher = better. MCU codegen maps this to esp_camera's 0–63
+  # (lower = better) scale. Default 70 ≈ old esp default of 18.
+  jpeg_quality: 70
   pub_hz: 2
   enable_default: true

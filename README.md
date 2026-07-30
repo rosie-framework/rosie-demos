@@ -1,8 +1,9 @@
 # Rosie demos
 
 Example robots and projects that use the [Rosie](https://github.com/rosie-framework/rosie)
-framework. Each subdirectory is a self-contained robot project: edit
-`robot.yaml`, flash with `rosie mcu`, drive with `rosie drive`.
+framework — the laptop-first fleet layer for mixed MCU / Linux / ROS teams.
+Each subdirectory is a self-contained robot project: edit `robot.yaml`, flash
+with `rosie mcu`, drive with `rosie drive`.
 
 Rosie itself lives in a **separate** repository — install it first, then open a
 demo folder.
